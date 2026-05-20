@@ -1,3 +1,9 @@
+# USE OF THIS FILE :
+
+# It allows you to define and run multiple Docker containers
+# together with a single command (docker compose up),
+# rather than manually managing each one
+
 services:
   mongo:
     image: mongo:7
@@ -6,16 +12,19 @@ services:
       - "27017:27017"
     volumes:
       - mongo-data:/data/db
+      
+      # By default docker stores the db data temporarily in the container, so if we stop the container, the db data will be lost.
+      # we are telling that to save the db data in the storage of the container
 
   api:
     build: .
     container_name: user-api
     ports:
       - "3000:3000"
-    environment:
-      MONGO_URI: mongodb://mongo:27017/users
     depends_on:
       - mongo
 
 volumes:
   mongo-data:
+
+# It is the main volume for telling docker to create a storage for storing some data(here it is db data)
