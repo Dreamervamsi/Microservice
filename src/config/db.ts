@@ -1,9 +1,13 @@
 import mongoose from "mongoose";
 
-mongoose.connect('mongodb://localhost:27017/users')
+const mongoUri =
+    process.env.MONGO_URI ?? "mongodb://localhost:27017/users";
+
+mongoose
+    .connect(mongoUri)
     .then(() => {
         console.log("Mongodb connected");
     })
     .catch((err) => {
-        console.log("Database error");
+        console.log("Database error", err.message);
     });
