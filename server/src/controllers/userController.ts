@@ -7,9 +7,9 @@ type userRegister = { name: string, email: string }
 export const getUsers = async (req: Request, res: Response) => {
     try{
         const getUsers = await User.find({});
-        res.json({ 'users': getUsers });
+        return res.json({ 'users': getUsers });
     }catch(err:any){
-        res.status(500).json({ 'message': "Error while fetching users",'error':err.message });
+        return res.status(500).json({ 'message': "Error while fetching users",'error':err.message });
     }
 }
 
@@ -20,16 +20,16 @@ export const createUser = async (req: Request, res: Response) => {
     try {
         if(!name || !email)
         {
-            res.status(400).json({'message':'Name and email are required'});
-            return;
+            return res.status(400).json({'message':'Name and email are required'});
         }
         const newUser = await User.create({
             name,
             email
         });
-        res.json({ 'message': "USer created", 'user': newUser });
+
+        return res.json({ 'message': "USer created", 'user': newUser });
     }
     catch(err:any){
-        res.status(500).json({'message':'Error while creating user','error':err.message});
+        return res.status(500).json({'message':'Error while creating user','error':err.message});
     }
 }
