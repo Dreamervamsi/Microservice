@@ -1,6 +1,4 @@
-import { app } from "./app";
-import './models/taskModel.js';
-import './controllers/taskController.js';
+import { app } from "./app.js";
 import './config/db.js';
 
 app.listen(process.env.PORT || 3001,()=>{

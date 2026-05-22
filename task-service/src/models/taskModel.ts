@@ -1,21 +1,24 @@
 import mongoose from 'mongoose';
 
 interface task{
-    title:String,
-    description:String,
-    userId:String,
+    title:string,
+    description:string,
+    userId:string,
     createdAt:Date
 }
 
 const taskSchema = new mongoose.Schema<task>({
     title:{
         type:String,
-        require:true
+        required:true
     },
     description:{
         type:String,
     },
-    userId:String,
+    userId:{
+        type:String,
+        required:true
+    },
     createdAt:{
         type:Date,
         default:Date.now()

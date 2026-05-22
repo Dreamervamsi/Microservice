@@ -8,11 +8,11 @@ interface user {
 const userSchema = new mongoose.Schema<user>({
     name: {
         type: String,
-        require: true
+        required: true
     },
     email: {
         type: String,
-        require: true
+        required: true
     }
 });
 
