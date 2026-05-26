@@ -1,5 +1,6 @@
-import {Request,Response} from 'express';
+import {type Request,type Response} from 'express';
 import { Task } from '../models/taskModel.js';
+import axios from 'axios';
 
 // get all tasks
 export const getTasks = async (req:Request,res:Response)=>{
@@ -17,11 +18,17 @@ export const createTask = async (req:Request,res:Response)=>{
     if(!title || !userId){
         return res.status(400).json({'Error':'Please fill all required fields'});
     }
+    const isUserExists = await axios.get(`http://localhost:3000/users/${userId}`);
+    if(isUserExists.status == 404)
+        {
+            
+        }
+
     try {
         const task = await Task.create({title,description,userId});
 
         return res.json({'message':'Task created','task':task});
-    } catch (error) {
+    } catch (error:any) {
         console.log("Error while creating task:",error.message);
         return res.status(500).json({'Error:':'Error at creating task'});
     }
@@ -38,7 +45,7 @@ export const getTaskById = async (req:Request,res:Response)=>{
             return res.status(404).json({'Error':'Task not found'});
         }
         res.json({'message':data});
-    } catch (error) {
+    } catch (error:any) {
         console.log(error.message);
         return res.status(500).json({'Error':'while retriving task by id'});
     }

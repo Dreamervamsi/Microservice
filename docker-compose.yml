@@ -16,11 +16,18 @@ services:
       # By default docker stores the db data temporarily in the container, so if we stop the container, the db data will be lost.
       # we are telling that to save the db data in the storage of the container
 
-  api:
-    build: .
+  user-service:
+    build: ./server
     container_name: user-api
     ports:
       - "3000:3000"
+    depends_on:
+      - mongo
+  task-service:
+    build: ./task-service
+    container_name: task-api
+    ports:
+      - "3001:3001"
     depends_on:
       - mongo
 

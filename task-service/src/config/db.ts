@@ -1,7 +1,6 @@
 import mongoose from "mongoose";
 
-const mongoUri =
-    process.env.MONGO_URI ?? "mongodb://mongo:27017/tasks";
+const mongoUri ="mongodb://mongo:27017/tasks";
 
 mongoose
     .connect(mongoUri)
